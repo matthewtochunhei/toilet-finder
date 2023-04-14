@@ -69,7 +69,7 @@ export default function Map() {
                     const lng = parseFloat(toilet.LONGITUDE)
                     if (lat && lng) {
 
-                        return (<Marker key={toilet.OBJECTID} position={[lat, lng]}>
+                        return (<Marker key={`${toilet.OBJECTID}-${toilet.LATITUDE}-${toilet.LATITUDE}`} position={[lat, lng]}>
                             <Popup>
                                 {toilet.NAME_TC}
                             </Popup>
