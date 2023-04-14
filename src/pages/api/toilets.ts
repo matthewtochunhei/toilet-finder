@@ -32,7 +32,6 @@ function getStaticProps() {
   const toilets = data.map((row) => {
     //const rowData = row.split(",");
     const rowData = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-
     const toilet: any = {};
     headers.forEach((header, index) => {
       toilet[header] = rowData[index];

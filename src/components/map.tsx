@@ -41,7 +41,7 @@ export default function Map() {
     useEffect(() => {
         fetch(`http://localhost:3000/api/toilets`)
             .then(res => res.json())
-            .then(data => setToilets(data))
+            .then(data => { setToilets(data) })
 
         //get current geo location
         navigator.geolocation.getCurrentPosition(function (position) {
@@ -64,12 +64,11 @@ export default function Map() {
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                {toilets.map(toilet => {
+                {toilets.map((toilet, index) => {
                     const lat = parseFloat(toilet.LATITUDE)
                     const lng = parseFloat(toilet.LONGITUDE)
                     if (lat && lng) {
-
-                        return (<Marker key={`${toilet.OBJECTID}-${toilet.LATITUDE}-${toilet.LATITUDE}`} position={[lat, lng]}>
+                        return (<Marker key={index} position={[lat, lng]}>
                             <Popup>
                                 {toilet.NAME_TC}
                             </Popup>
