@@ -39,16 +39,25 @@ import { useEffect, useState } from "react";
 export default function Map() {
     const [toilets, setToilets] = useState<ToiletLocation[]>([])
     useEffect(() => {
+        // prompt mobile users to turn on location service
+        navigator.permissions.query({ name: 'geolocation' }).then(function (result) {
+            if (result.state === 'prompt') {
+                alert('Please turn on location service')
+            }
+        })
+
+
+        //get current geo location
+        navigator.geolocation.getCurrentPosition(function (position) {
+            setHk({ lat: position.coords.latitude, lng: position.coords.longitude })
+        })
         // use current origin
         const url = `${window.location.origin}/api/toilets`
         fetch(url)
             .then(res => res.json())
             .then(data => { setToilets(data) })
 
-        //get current geo location
-        navigator.geolocation.getCurrentPosition(function (position) {
-            setHk({ lat: position.coords.latitude, lng: position.coords.longitude })
-        })
+
     }, [])
     // current user geol location
     const [hk, setHk] = useState({ lat: 0, lng: 0 })
