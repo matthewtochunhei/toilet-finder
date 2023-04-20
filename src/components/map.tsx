@@ -39,7 +39,9 @@ import { useEffect, useState } from "react";
 export default function Map() {
     const [toilets, setToilets] = useState<ToiletLocation[]>([])
     useEffect(() => {
-        fetch(`http://localhost:3000/api/toilets`)
+        // use current origin
+        const url = `${window.location.origin}/api/toilets`
+        fetch(url)
             .then(res => res.json())
             .then(data => { setToilets(data) })
 
